@@ -9,7 +9,7 @@ Config
 Lanch the project
 
 First clone the project:
-	git clone git@github.com:cnerot/docker_project.git
+	git clone https://github.com/cnerot/docker_project.git
 
 To Launch App 1
 	docker-compose -f app1.yml up -d
