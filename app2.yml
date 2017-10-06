@@ -1,0 +1,36 @@
+version: "2"
+services:
+  nginxbis:
+    build:
+      context: ./docker/nginx2
+    ports:
+      - "8081:80"
+    volumes:
+      - ./app2:/var/app
+  fpm2:
+    build:
+      context: ./docker/fpm
+    volumes:
+      - ./app2:/var/app
+    expose:
+      - "9000"
+    environment:
+      - "DB_HOST=db"
+      - "DB_DATABASE=dbdatabase"
+  db-data:
+    container_name: db-zend
+    image: busybox
+    volumes:
+      - dbdatabase:/var/lib/mysql
+  db:
+    image: mariadb
+    volumes_from:
+      - db-data
+    environment:
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pwd
+      MYSQL_ROOT_PASSWORD: rootpwd
+      MYSQL_DATABASE: dbdatabase
+volumes:
+    dbdatabase:
+        driver: local
